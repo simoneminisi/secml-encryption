@@ -70,3 +70,8 @@ sequenceDiagram
 In this scenario, the only supported layer type is PyTorch Linear.
 
 The only activation function supported is the SqNL activation function provided within this module.
+
+## Contributing
+
+We welcome contributions from the research community to expand the library's capabilities or add new features. 
+If you would like to contribute to SecML-Fair, please follow our [contribution guidelines](https://github.com/simoneminisi/secml-fair/blob/main/CONTRIBUTING.md).
