@@ -17,7 +17,7 @@ class SqNL(Module):
 
     Examples::
 
-        >>> m = nn.SqNL()
+        >>> m = SqNL()
         >>> input = torch.randn(2)
         >>> output = m(input)
     """
@@ -29,6 +29,3 @@ class SqNL(Module):
         return {
             'type': 'SqNL'
         }
-
-def sigmoid_approx(x: CKKSVector):
-    return 0.5 + 0.197 * x - 0.004 * x.pow(3)

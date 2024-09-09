@@ -4,7 +4,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 from secmltencryption.models.pytorch.model_wrapper import ModelWrapper
-from secmltencryption.activation_functions.activation_functions import SqNL
+from secmltencryption.activation_functions.square import SqNL
 import tenseal as ts
 
 import pickle

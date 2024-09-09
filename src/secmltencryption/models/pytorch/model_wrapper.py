@@ -5,8 +5,9 @@ import os
 import base64
 from secmltencryption.models.pytorch.linear_layer import LinearLayer
 from secmltencryption.models.pytorch.conv2d_layer import Conv2dLayer
-from secmltencryption.activation_functions.activation_functions import SqNL
+from secmltencryption.activation_functions.square import SqNL
 import pickle
+import torch
 
 class ModelWrapper:
   pipeline = []
@@ -51,12 +52,12 @@ class ModelWrapper:
 
       self._context.generate_galois_keys()
 
-    for x in model_summary.summary_list[1:]:      
-      if x.class_name == 'Linear':
+    for x in model_summary.summary_list[1:]:
+      if isinstance(x.module, torch.nn.Linear):
         self.pipeline += [LinearLayer(getattr(model, x.var_name), encrypt=encrypt_model, context=self._context)]
-      elif x.class_name == 'SqNL':
+      elif isinstance(x.module, SqNL):
         self.pipeline += [getattr(model, x.var_name)]
-      elif x.class_name == 'Conv2d':
+      elif isinstance(x.module, torch.nn.Conv2d):
         self.pipeline += [Conv2dLayer(getattr(model, x.var_name), input_size=input_size)]
       else:
         raise Exception(f'Layer of class { x.class_name } not supported. Supported layers are: { str.join(",", self.supported_classes) }')

@@ -4,7 +4,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 from secmltencryption.models.pytorch.model_wrapper import ModelWrapper
-from secmltencryption.activation_functions.activation_functions import SqNL
+from secmltencryption.activation_functions.square import SqNL
 import tenseal as ts
 
 import pickle
@@ -69,7 +69,7 @@ serialized_model = pickle.load(serialized_model_file)
 wrapped_model = ModelWrapper.deserialize(key=None, serialized_model=serialized_model)
 
 # Testing loop with TenSEAL
-model.eval()
+print('Loading encrypted input...')
 filehandler = open(os.path.join('./examples/Scenario1/Example1', 'encrypted_data.obj'), 'rb') 
 encrypted_data = pickle.load(filehandler)
 
@@ -79,13 +79,12 @@ encrypted_data = [ts.ckks_vector_from(context, x) for x in encrypted_data]
 
 encrypted_output = []
 
-c = 0
+print('Computing encrypted predictions...')
 with torch.no_grad():
     for enc_x in encrypted_data:
         outputs = wrapped_model(enc_x)
         encrypted_output.append(outputs.serialize())
-        c += 1
-        print(c)
 
+print('Saving encrypted predictions...')
 filehandler = open(os.path.join('./examples/Scenario1/Example1','encrypted_output.obj'), 'wb') 
 pickle.dump(encrypted_output, filehandler)
