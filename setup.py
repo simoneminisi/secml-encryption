@@ -35,10 +35,5 @@ setup(
     author_email="simone.minisi@dibris.unige.it",
     description="SecML-Torch Encryption Plugin",
     include_package_data=True,
-    install_requires=[
-          'torch',
-          'numpy',
-          'scikit-learn',
-          'tenseal'
-    ],
+    install_requires=["torch", "numpy", "scikit-learn", "tenseal"],
 )
