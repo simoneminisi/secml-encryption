@@ -10,7 +10,7 @@ import pickle
 import torch
 
 
-class ModelWrapper:
+class HEWrapper:
     """
     A wrapper class for PyTorch models that supports encryption and serialization.
 
@@ -33,7 +33,7 @@ class ModelWrapper:
         first_last_bits_scale: int = 31,
     ):
         """
-        Initialize the ModelWrapper.
+        Initialize the HEWrapper.
 
         Args:
             model (nn.Module): The PyTorch model to be wrapped.
@@ -159,16 +159,16 @@ class ModelWrapper:
         """
         Deserialize a model from the given serialized data.
 
-        This class method creates a new ModelWrapper instance from the serialized data.
+        This class method creates a new HEWrapper instance from the serialized data.
 
         Args:
             key: The encryption key (can be None for non-encrypted models).
             serialized_model: The serialized model data.
 
         Returns:
-            ModelWrapper: A new instance of ModelWrapper with the deserialized model.
+            HEWrapper: A new instance of HEWrapper with the deserialized model.
         """
-        wrapped_model = ModelWrapper(
+        wrapped_model = HEWrapper(
             None,
             input_size=serialized_model["input_size"],
             encrypt_model=serialized_model["encrypt_model"],

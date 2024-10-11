@@ -2,7 +2,7 @@ import torch
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 import tenseal as ts
-from secmltencryption.models.pytorch.model_wrapper import ModelWrapper
+from secmltencryption.models.pytorch.he_wrapper import HEWrapper
 
 import os
 import pickle
@@ -27,7 +27,7 @@ filehandler = open(
 )
 encrypted_data = pickle.load(filehandler)
 
-wrapped_model = ModelWrapper.deserialize(
+wrapped_model = HEWrapper.deserialize(
     key=public_key, serialized_model=serialized_model
 )
 encrypted_outputs = []

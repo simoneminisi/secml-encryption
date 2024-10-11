@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
-from secmltencryption.models.pytorch.model_wrapper import ModelWrapper
+from secmltencryption.models.pytorch.he_wrapper import HEWrapper
 from secmltencryption.activation_functions.square import SqNL
 import tenseal as ts
 
@@ -68,7 +68,7 @@ for epoch in range(num_epochs):
 
 print("Training finished!")
 
-wrapped_model = ModelWrapper(model, input_size=(28, 28))
+wrapped_model = HEWrapper(model, input_size=(28, 28))
 
 wrapped_model.serialize("./examples/Scenario1/Example2")
 
@@ -77,7 +77,7 @@ serialized_model_file = open(
 )
 serialized_model = pickle.load(serialized_model_file)
 
-wrapped_model = ModelWrapper.deserialize(key=None, serialized_model=serialized_model)
+wrapped_model = HEWrapper.deserialize(key=None, serialized_model=serialized_model)
 
 # Testing loop with TenSEAL
 model.eval()

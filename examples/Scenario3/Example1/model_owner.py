@@ -4,7 +4,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 import tenseal as ts
-from secmltencryption.models.pytorch.model_wrapper import ModelWrapper
+from secmltencryption.models.pytorch.he_wrapper import HEWrapper
 from secmltencryption.activation_functions.square import SqNL
 import os
 import pickle
@@ -62,7 +62,7 @@ for epoch in range(num_epochs):
                 f"Epoch [{epoch+1}/{num_epochs}], Step [{batch_idx}/{len(train_loader)}], Loss: {loss.item():.4f}"
             )
 
-wrapped_model = ModelWrapper(
+wrapped_model = HEWrapper(
     model,
     encrypt_model=True,
     num_matmul=8,
